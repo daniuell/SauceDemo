@@ -1,16 +1,24 @@
 import { test as baseTest } from '@playwright/test';
-import BasePage from "../pageObject/basePage";
-import LoginPage from '../pageObject/loginPage';
-import HomePage from '../pageObject/homePage';
-
+import BasePage from "../pageObject/pages/basePage";
+import LoginPage from '../pageObject/pages/loginPage';
+import HomePage from '../pageObject/pages/homePage';
+import HeaderComponent from '../pageObject/components/headerComponent';
+import SideMenuViews from '../pageObject/views/sideMenuViews';
 
 const test = baseTest.extend<{
 
+  //Pages
   basePage: BasePage;
   loginPage: LoginPage;
   homePage: HomePage;
 
+  //Components
+  headerComponent: HeaderComponent;
+
+  //Views
+  sideMenuViews: SideMenuViews;
 }>({
+  //Pages
   basePage: async ({ page }, use) => {
     await use(new BasePage(page))
   },
@@ -19,6 +27,16 @@ const test = baseTest.extend<{
   },
   homePage: async ({ page }, use) => {
     await use(new HomePage(page))
+  },
+
+  //Components
+  headerComponent: async ({ page }, use) => {
+    await use(new HeaderComponent(page))
+  },
+
+  //Views
+  sideMenuViews: async ({ page }, use) => {
+    await use(new SideMenuViews(page))
   },
 });
 
