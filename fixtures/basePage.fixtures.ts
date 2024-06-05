@@ -4,6 +4,7 @@ import LoginPage from '../pageObject/pages/loginPage';
 import HomePage from '../pageObject/pages/homePage';
 import HeaderComponent from '../pageObject/components/headerComponent';
 import SideMenuViews from '../pageObject/views/sideMenuViews';
+import FooterComponent from '../pageObject/components/footerComponent';
 
 const test = baseTest.extend<{
 
@@ -14,6 +15,7 @@ const test = baseTest.extend<{
 
   //Components
   headerComponent: HeaderComponent;
+  footerComponent: FooterComponent;
 
   //Views
   sideMenuViews: SideMenuViews;
@@ -32,6 +34,9 @@ const test = baseTest.extend<{
   //Components
   headerComponent: async ({ page }, use) => {
     await use(new HeaderComponent(page))
+  },
+  footerComponent: async ({ page }, use) => {
+    await use(new FooterComponent(page))
   },
 
   //Views
