@@ -117,4 +117,7 @@ test.describe('Test cases based on excel file', () => {
 
     await newPageThird.close();
   });
+  test("tC_008 | As a user, I want to be redirected to the relevant url by clicking icon", async ({ loginPage, homePage, page, footerComponent }) => {
+
+  })
 });
