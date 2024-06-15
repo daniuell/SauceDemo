@@ -9,6 +9,6 @@ export default class HomePage {
   productAddToCartButton = this.page.locator('[id="add-to-cart-sauce-labs-backpack"]');
 
   constructor(private page: Page) {
-    page = page;
+    this.page = page;
   };
 };

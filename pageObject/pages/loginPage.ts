@@ -8,7 +8,7 @@ export default class LoginPage {
   validationError = this.page.locator('[class="error-message-container error"]');
 
   constructor(private page: Page) {
-    page = page;
+    this.page = page;
   };
   async loginAsUser(username: string, password: string) {
 
