@@ -117,4 +117,12 @@ test.describe('Test cases based on excel file', () => {
 
     await newPageThird.close();
   });
+  test('TC_009 | As a user, I want to see available products to purchase', async ({ loginPage, homePage }) => {
+
+    await loginPage.loginAsUser(CorrectUser.login, CorrectUser.password);
+
+    const countProducts = await homePage.product.count();
+
+    expect(countProducts).toBeLessThanOrEqual(6);
+  });
 });
