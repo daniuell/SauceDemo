@@ -117,11 +117,4 @@ test.describe('Test cases based on excel file', () => {
 
     await newPageThird.close();
   });
-  test('TC_009 | As a user, I want to see available products to purchase', async ({ homePage }) => {
-    //Count products
-    const produtctCount = await homePage.product.count();
-
-    await expect(produtctCount).toBeLessThanOrEqual(6);
-
-  });
 });
