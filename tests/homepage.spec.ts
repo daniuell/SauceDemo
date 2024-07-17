@@ -38,7 +38,7 @@ test.describe('Test cases based on excel file', () => {
     expect(await Promise.all(elementsVisibility.map(async (locator) => await expect(locator).toBeInViewport())));
 
   });
-  test('TC_004 | As a user, I can open the side menu after clicking on "="  and options: "All items","About","Logout","Reset App State" are displayed', async ({ loginPage, homePage, page, headerComponent, sideMenuViews }) => {
+  test('TC_004 | As a user, I can open the side menu after clicking on "="  and options: "All items","About","Logout","Reset App State" are displayed', async ({ loginPage, homePage, page, headerComponent }) => {
 
     const elementsVisibility: Locator[] = headerComponent.headerLocators;
 
@@ -124,5 +124,19 @@ test.describe('Test cases based on excel file', () => {
     const countProducts = await homePage.product.count();
 
     expect(countProducts).toBeLessThanOrEqual(6);
+  });
+  test('TC_010 | As a user, I want to see product: name, description, price, add to cart button', async ({ loginPage, homePage }) => {
+
+    await loginPage.loginAsUser(CorrectUser.login, CorrectUser.password);
+
+    //Count all items
+    const countItems = await homePage.product.count();
+
+    //Check visibility of products and details
+    for (let i = 0; i <= countItems - 1; i++) {
+      await expect(homePage.productDescription.nth(i)).toBeInViewport();
+      await expect(homePage.productPrice.nth(i)).toBeInViewport();
+      await expect(homePage.productAddToCartButton.nth(i)).toBeInViewport();
+    }
   });
 });
