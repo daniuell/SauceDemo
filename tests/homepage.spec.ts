@@ -139,4 +139,30 @@ test.describe('Test cases based on excel file', () => {
       await expect(homePage.productAddToCartButton.nth(i)).toBeInViewport();
     }
   });
+  test('TC_011 | As a user, I want to add product to the basket', async ({ loginPage, homePage, headerComponent, shoppingCart }) => {
+
+    await loginPage.loginAsUser(CorrectUser.login, CorrectUser.password);
+
+    //Count all items
+    const countItems = await homePage.product.count();
+
+    //Generate random pick from products
+    const randomNumber = Math.floor(Math.random() * countItems) + 1;
+
+    //Add random item to basket
+    await homePage.productAddToCartButton.nth(randomNumber).click();
+
+    await expect(headerComponent.shoppingCartWithItems).toContainText('1');
+
+    //Get item information
+    const productTitle = await homePage.productTitle.nth(randomNumber).textContent();
+    const productDescription = await homePage.productDescription.nth(randomNumber).textContent();
+
+    //Open basket
+    await headerComponent.shoppingCart.click();
+
+    //Check basket with added item
+    await expect(shoppingCart.itemDescription).toContainText(productDescription);
+    await expect(shoppingCart.itemTitle).toContainText(productTitle)
+  });
 });
