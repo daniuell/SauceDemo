@@ -5,6 +5,7 @@ import HomePage from '../pageObject/pages/homePage';
 import HeaderComponent from '../pageObject/components/headerComponent';
 import SideMenuViews from '../pageObject/views/sideMenuViews';
 import FooterComponent from '../pageObject/components/footerComponent';
+import ShoppingCart from '../pageObject/pages/shoppingCartPage';
 
 const test = baseTest.extend<{
 
@@ -12,6 +13,7 @@ const test = baseTest.extend<{
   basePage: BasePage;
   loginPage: LoginPage;
   homePage: HomePage;
+  shoppingCart: ShoppingCart;
 
   //Components
   headerComponent: HeaderComponent;
@@ -29,6 +31,9 @@ const test = baseTest.extend<{
   },
   homePage: async ({ page }, use) => {
     await use(new HomePage(page))
+  },
+  shoppingCart: async ({ page }, use) => {
+    await use(new ShoppingCart(page))
   },
 
   //Components
