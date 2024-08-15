@@ -147,7 +147,7 @@ test.describe('Test cases based on excel file', () => {
     const countItems = await homePage.product.count();
 
     //Generate random pick from products
-    const randomNumber = Math.floor(Math.random() * countItems) + 1;
+    const randomNumber = Math.floor(Math.random() * countItems);
 
     //Add random item to basket
     await homePage.productAddToCartButton.nth(randomNumber).click();
@@ -164,5 +164,36 @@ test.describe('Test cases based on excel file', () => {
     //Check basket with added item
     await expect(shoppingCart.itemDescription).toContainText(productDescription);
     await expect(shoppingCart.itemTitle).toContainText(productTitle)
+  });
+  test('TC_014 | As a user, I would like to delete product from the basket, by clicking "Remove" button ', async ({ loginPage, homePage, headerComponent, shoppingCart }) => {
+
+    await loginPage.loginAsUser(CorrectUser.login, CorrectUser.password);
+
+    //Count all items
+    const countItems = await homePage.product.count();
+
+    //Generate random pick from products
+    const randomNumber = Math.floor(Math.random() * countItems);
+
+    //Add random item to basket
+    await homePage.productAddToCartButton.nth(randomNumber).click();
+
+    await expect(headerComponent.shoppingCartWithItems).toContainText('1');
+
+    //Get item information
+    const productTitle = await homePage.productTitle.nth(randomNumber).textContent();
+    const productDescription = await homePage.productDescription.nth(randomNumber).textContent();
+
+    //Open basket
+    await headerComponent.shoppingCart.click();
+
+    //Check basket with added item
+    await expect(shoppingCart.itemDescription).toContainText(productDescription);
+    await expect(shoppingCart.itemTitle).toContainText(productTitle);
+
+    //Remove item from the basket 
+    await shoppingCart.itemRemove.click();
+
+    await expect(shoppingCart.itemRemove).not.toBeInViewport();
   });
 });
