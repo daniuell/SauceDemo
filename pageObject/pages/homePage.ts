@@ -7,6 +7,7 @@ export default class HomePage {
   productDescription = this.page.locator('[class="inventory_item_desc"]');
   productPrice = this.page.locator('[class="inventory_item_price"]');
   productAddToCartButton = this.page.locator('//button[contains(@data-test,"add-to-cart")]');
+  productSortMenu = this.page.locator('[data-test="product-sort-container"]');
 
   constructor(private page: Page) {
     this.page = page;
