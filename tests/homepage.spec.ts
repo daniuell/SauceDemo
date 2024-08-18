@@ -3,6 +3,7 @@ import test from '../fixtures/basePage.fixtures'
 import { CorrectUser } from '../testData/testData';
 import { newPageHandle } from '../tools/utils';
 import { FooterUrls } from '../enums/footerUrls';
+import { SortOptions } from '../enums/homepage';
 test.describe('Test cases based on excel file', () => {
 
   test.beforeEach(async ({ page }) => {
@@ -164,6 +165,28 @@ test.describe('Test cases based on excel file', () => {
     //Check basket with added item
     await expect(shoppingCart.itemDescription).toContainText(productDescription);
     await expect(shoppingCart.itemTitle).toContainText(productTitle)
+  });
+  test('TC_012 | As a user, I want to sort products in the shop after clicking options are shown: name(a to z), name(z to a), price(low to high), price(high to low)', async ({ loginPage, homePage }) => {
+
+    await loginPage.loginAsUser(CorrectUser.login, CorrectUser.password);
+    await homePage.productSortMenu.click();
+    await homePage.productSortMenu.selectOption(SortOptions.Az);
+
+    //Count all items
+    const countItems = await homePage.product.count();
+
+    let items = [];
+
+    for (let i = 0; i < countItems; i++) {
+      items.push(await homePage.productTitle.nth(i).textContent());
+    };
+
+    let itemsSort = [...items];
+    itemsSort.sort((a, b) => a.localeCompare(b));
+
+    for (let i = 0; i < items.length; i++) {
+      expect(items[i]).toEqual(itemsSort[i])
+    };
   });
   test('TC_014 | As a user, I would like to delete product from the basket, by clicking "Remove" button ', async ({ loginPage, homePage, headerComponent, shoppingCart }) => {
 
